@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Life</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('assets/background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .slideshow-container {
+            max-width: 600px;
+            position: relative;
+            margin: auto;
+            text-align: center;
+            color: white;
+        }
+        .mySlides {
+            display: none;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            user-select: none;
+        }
+        .prev {
+            left: -0.1px; /* Move the prev button a little to the left */
+            border-radius: 3px 0 0 3px;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        /* Button styles */
+        .feature-btn {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .feature-btn:hover {
+            background-color: #45a049; /* Darker Green */
+        }
+
+        /* Bot button */
+        .bot-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .bot-btn:hover {
+            background-color: #45a049; /* Darker Green */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li id="fitness-btn"><a href="#">Fitness</a></li>
+                <li id="mental-wellbeing-btn"><a href="#">Mental Well-being</a></li>
+                <li id="nutrition-btn"><a href="#">Nutrition</a></li>
+                <li id="about-btn"><a href="#">About</a></li>
+                <li id="profile-btn"><a href="#">Profile</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <button class="bot-btn" onclick="toggleChatbot()">Bot</button>
+
+    <section class="hero">
+        <h1>Personalized Wellness Solutions</h1>
+        <p>Your journey to holistic wellness starts here.</p>
+        <a href="login.html" class="cta-btn">Login</a>
+    </section>
+
+    <section class="hero">
+        <h1>Customized Weight Loss Solutions</h1>
+        <p>Embark on your journey to holistic weight loss here.</p>
+        <button id="slim-start-btn" class="cta-btn">Slim Start</button>
+    </section>
+    
+    
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="slideshow-container">
+            <div class="mySlides">
+                <h3>Personalized Workout Plans</h3>
+            </div>
+            <div class="mySlides">
+                <h3>Customized Meal Plans</h3>
+            </div>
+            <div class="mySlides">
+                <h3>Mental Well-being Support</h3>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>Success Stories</h2>
+        <div class="testimonial">
+            <p>"Since using the platform, I've lost 20 pounds and feel more energetic than ever!"</p>
+            <p class="author">- John Doe</p>
+        </div>
+        <!-- More testimonials here -->
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p>Green Life is dedicated to providing personalized wellness solutions to help you achieve holistic health and well-being.</p>
+            </div>
+    
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: contact@greenlife.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 123 Wellness Way, Health City, HC 12345</p>
+            </div>
+    
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#"><img src="assets/facebook-icon.png" alt="Facebook"></a>
+                <a href="#"><img src="assets/twitter-icon.png" alt="Twitter"></a>
+                <a href="#"><img src="assets/instagram-icon.png" alt="Instagram"></a>
+                <a href="#"><img src="assets/linkedin-icon.png" alt="LinkedIn"></a>
+            </div>
+    
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <form action="subscribe.php" method="post">
+                    <input type="email" name="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+    
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            </div>
+    
+            <div class="footer-copyright">
+                <p>&copy; 2024 Green Life. All rights reserved.</p>
+            </div>
+        </div>
+    
+        <style>
+            footer {
+                background-color: #333;
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+            }
+            .footer-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                max-width: 1200px;
+                margin: auto;
+            }
+            .footer-container div {
+                flex: 1;
+                min-width: 200px;
+                margin: 10px;
+            }
+            .footer-container h3 {
+                border-bottom: 1px solid #555;
+                padding-bottom: 10px;
+            }
+            .footer-container a {
+                color: white;
+                text-decoration: none;
+            }
+            .footer-container a:hover {
+                text-decoration: underline;
+            }
+            .footer-container img {
+                width: 24px;
+                height: 24px;
+                margin: 5px;
+            }
+            .footer-newsletter input[type="email"] {
+                padding: 10px;
+                width: calc(100% - 22px);
+                margin-right: 10px;
+            }
+            .footer-newsletter button {
+                padding: 10px;
+                background-color: #5cb85c;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+            .footer-newsletter button:hover {
+                background-color: #4cae4c;
+            }
+        </style>
+    </footer>
+    
+    <script>
+        // Slim Start button functionality
+        var slimStartBtn = document.getElementById('slim-start-btn');
+        var featuresSection = document.getElementById('features-section');
+
+       
+
+        // Get the buttons by their IDs
+        var fitnessBtn = document.getElementById('fitness-btn');
+        var mentalWellbeingBtn = document.getElementById('mental-wellbeing-btn');
+        var nutritionBtn = document.getElementById('nutrition-btn');
+        var profileBtn = document.getElementById('profile-btn');
+        var aboutBtn = document.getElementById('about-btn');
+
+        // Add click event listeners to redirect to the respective pages
+        fitnessBtn.addEventListener('click', function() {
+            window.location.href = 'fitness_routine.html';
+        });
+
+        mentalWellbeingBtn.addEventListener('click', function() {
+            window.location.href = 'mental_health_tracker_form.html';
+        });
+
+        nutritionBtn.addEventListener('click', function() {
+            window.location.href = 'nutritional_planning.html';
+        });
+
+        profileBtn.addEventListener('click', function() {
+            window.location.href = 'profile.html';
+        });
+
+        aboutBtn.addEventListener('click', function() {
+            window.location.href = 'about.html';
+        });
+         // Add click event listener to redirect to exercise.html
+        slimStartBtn.addEventListener('click', function() {
+            window.location.href = 'exercise.html';
+        });
+
+    
+
+
+        // Slideshow functionality
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+        }
+
+        // Auto slideshow
+        setInterval(function() {
+            plusSlides(1);
+        }, 3000); // Change slide every 3 seconds
+
+        // Toggle chatbot functionality
+        function toggleChatbot() {
+            window.location.href = 'chatbot.html';
+        }
+    </script>
+</body>
+</html>

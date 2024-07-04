@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selected Conditions</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('background_image.jpg'); /* Replace 'background_image.jpg' with your image file */
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 36px;
+        color: #333;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        background-color: rgba(0, 128, 0, 0.7);
+        color: white;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>You Are Good To Go With The Below Plan!</h2>
+    <ul id="conditions-list">
+        <!-- Selected conditions will be displayed here -->
+    </ul>
+</div>
+<script>
+    const intents = {
+        Diabetes: {
+            Breakfast: 'Oats idli with sambar and coconut chutney, Green tea',
+            Lunch: 'Brown rice with vegetable curry, Cucumber salad with lemon dressing',
+            Dinner: 'Grilled fish with steamed vegetables, Buttermilk',
+            Snacks: 'Mixed fruit salad with a sprinkle of chaat masala (No added Sugar)'
+        },
+        'High Blood Pressure (BP)': {
+            Breakfast: 'Vegetable upma with coconut chutney, Decaffeinated green tea',
+            Lunch: 'Chapati (whole wheat flatbread) with palak paneer (spinach and cottage cheese curry), Cucumber-tomato salad with low-fat yogurt dressing',
+            Dinner: 'Pulao with mixed vegetables, Lentil soup (low sodium)',
+            Snacks: 'Sprouts salad with lemon juice and chat masala'
+        },
+        Cholesterol: {
+            Breakfast: 'Pongal (rice and lentil porridge) with coconut chutney and sambar, Decaffeinated filter coffee',
+            Lunch: 'Dosa with tomato chutney, Methi (fenugreek) dal with brown rice',
+            Dinner: 'Grilled chicken breast with stir-fried vegetables, Mint lassi (without added sugar)',
+            Snacks: 'Almonds and walnuts (unsalted)'
+        },
+        'Heart Disease': {
+            Breakfast: 'Ragi (finger millet) dosa with coconut chutney, Herbal tea',
+            Lunch: 'Barley salad with mixed vegetables and lemon-tahini, Baked fish with herbs',
+            Dinner: 'Paneer (cottage cheese) tikka with mint chutney, Mixed vegetable soup (low sodium)',
+            Snacks: 'Carrot sticks'
+        },
+        'Kidney Stones': {
+            Breakfast: 'Semiya upma with mixed vegetables, Ginger tea',
+            Lunch: 'Brown rice with dal, Grilled tofu with stir-fried vegetables',
+            Dinner: 'Stuffed bell peppers with quinoa and vegetables, Tomato soup (low sodium)',
+            Snacks: 'Greek yogurt with sliced almonds and berries'
+        }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const conditions = urlParams.getAll('conditions[]');
+
+    const conditionsList = document.getElementById('conditions-list');
+    conditions.forEach(condition => {
+        const conditionData = intents[condition];
+        if (conditionData) {
+            Object.keys(conditionData).forEach(mealType => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${condition} (${mealType}):</strong> ${conditionData[mealType]}`;
+                conditionsList.appendChild(listItem);
+            });
+        }
+    });
+</script>
+</body>
+</html>

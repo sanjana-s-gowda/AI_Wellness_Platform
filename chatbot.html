@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            background-image: url('assets/background.png');
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        #chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-bottom: 10px;
+        }
+        
+        input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        button {
+            width: 70px;
+            padding: 10px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        p {
+            margin: 10px 0;
+            padding: 0;
+            font-size: 16px;
+        }
+        
+        p strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        var intents = {
+            greeting: {
+                patterns: ['hello', 'hi', 'hey', 'good morning', 'good evening'],
+                responses: ['Hello!', 'Hi there!', 'Hey!', 'Good morning!', 'Good evening!']
+            },
+            Introduction: {
+                patterns: ['introduce yourself', 'who are you', 'tell me about yourself'],
+                responses: ["I am a virtual assistant here to help you.", "I am an AI assistant designed to assist you with various tasks.', 'I'm here to provide assistance and answer your questions."]
+            },
+            Thanking: {
+                patterns: ['thank you', 'thanks', 'appreciate it'],
+                responses: ["You're welcome!", "No problem!", 'Anytime!', 'Glad to help!']
+            },
+            goodbye: {
+                patterns: ['bye', 'goodbye', 'see you later', 'take care'],
+                responses: ['Goodbye!', 'See you later!', 'Take care!', 'Bye!']
+            },
+            Farewell: {
+                patterns: ['goodbye', 'bye', 'see you later', 'take care'],
+                responses: ['Goodbye!', 'See you later!', 'Take care!', 'Bye!']
+            },
+            Acknowledgment:{
+                patterns: ['yes', 'yeah', 'yep', 'ok', 'okay'],
+                responses: ['Great!', 'Okay.', 'Got it.', 'Understood.']
+            },
+            Negation:{
+                patterns:  ['no', 'nope', 'nah'],
+                responses: ['Alright.', 'Okay.', 'No problem.', 'Got it.']
+            },
+            Apology:{
+                patterns:  ['sorry', 'my apologies', 'excuse me'],
+                responses: ['No problem.', "It's alright.", "No worries.", "That's okay."]
+            },
+            Confirmation:{
+                patterns:  ['confirm', 'is that correct', 'did I understand correctly'],
+                responses:  ["Yes, that's correct.", "That's right.", 'You got it.', 'Exactly.']
+            },
+            HelpRequest:{
+                patterns:  ['help', 'assist me', 'I need assistance'],
+                responses:  ['Sure, how can I assist you?', "I'm here to help. What do you need?", 'What can I assist you with?', 'Sure, just let me know what you need help with.']
+            },
+
+            thanks: {
+                patterns: ['thanks', 'thank you', 'appreciate it'],
+                responses: ['You\'re welcome!', 'No problem!', 'Anytime!', 'Glad to help!']
+            },
+            Confusion:{
+                patterns: ["I'm confused", "I don't understand", 'can you explain'],
+                responses:  ['Let me clarify that for you.', "I'm here to help you understand.", "Sure, I can explain that.", "Let's break it down together."]
+            },
+            Gratitude: {
+                patterns: ["you're great", "you're awesome", "thanks for your help"],
+                responses: ['Thank you!', 'I appreciate your kind words!', "Glad to assist!", "It's my pleasure!"]
+            },
+            appointment_booking: {
+                patterns: ['book an appointment', 'schedule a visit', 'make an appointment'],
+                responses: ['Sure, I can help with that. What date and time works for you?', 'Let\'s get that scheduled. When would you like to come in?']
+            },
+            appointment_cancellation: {
+                patterns: ['cancel my appointment', 'reschedule my visit', 'change my appointment'],
+                responses: ['Your appointment has been cancelled. Would you like to reschedule?', 'I\'ve cancelled your appointment. Would you like to book a new one?']
+            },
+            symptoms_check: {
+                patterns: ['I have a headache', 'I feel nauseous', 'I have a fever'],
+                responses: ["I\'m sorry to hear that. How long have you been feeling this way?", "Can you describe your symptoms in more detail?"],
+            },
+            medication_inquiry: {
+                patterns: ['What is this medicine for?', 'How do I take this medication?', 'What are the side effects?'],
+                responses: ['This medication is for [condition]. Please follow the instructions provided by your doctor.', 'Take this medication as prescribed by your healthcare provider.']
+            },
+            doctor_availability: {
+                patterns: ['Is Dr. Smith available?', 'When can I see Dr. Johnson?', 'Doctor\'s schedule'],
+                responses: ['Dr. Smith is available on [date]. Would you like to book an appointment?', 'Dr. Johnson is available next week. Shall I schedule you for a visit?']
+            },
+            clinic_hours: {
+                patterns: ['What are your working hours?', 'When is the clinic open?', 'Clinic timings'],
+                responses: ['Our clinic is open from 9 AM to 5 PM, Monday to Friday.', 'We are open from 9 AM to 5 PM, Monday through Friday.']
+            },
+            insurance_info: {
+                patterns: ['Do you accept insurance?', 'Is my insurance accepted?', 'Insurance policy'],
+                responses: ['Yes, we accept various insurance plans. Please provide your insurance details.', 'We accept most major insurance plans. Could you share your insurance information?']
+            },
+            billing_questions: {
+                patterns: ['I have a billing question', 'Explain my bill', 'Billing inquiry'],
+                responses: ['I can help with that. What seems to be the issue?', 'Please provide your billing details so I can assist you.']
+            },
+            prescription_refill: {
+                patterns: ['Refill my prescription', 'Need a prescription refill', 'Prescription refill request'],
+                responses: ['Please provide your prescription details.', 'I can assist with your refill. Can you share your prescription number?']
+            },
+            test_results: {
+                patterns: ['When will my test results be ready?', 'Get my test results', 'Lab results'],
+                responses: ['Your test results will be ready in [time frame]. We will notify you.', 'You can check your test results online or wait for a call from us.']
+            },
+            emergency_contact: {
+                patterns: ['Emergency contact number', 'Emergency number', 'Urgent help'],
+                responses: ['For emergencies, please call 911 or go to the nearest emergency room.', 'In case of an emergency, dial 911 immediately.']
+            },
+            new_patient_registration: {
+                patterns: ['Register as a new patient', 'New patient form', 'Sign up for new patient'],
+                responses: ['You can register as a new patient online or visit our clinic to fill out the forms.', 'Please visit our new patient registration page to get started.']
+            },
+            health_tips: {
+                patterns: ['Give me health tips', 'How to stay healthy', 'Wellness advice'],
+                responses: ['Stay hydrated, eat balanced meals, and exercise regularly.', 'Regular check-ups and a healthy lifestyle are key to staying healthy.']
+            },
+            vaccination_info: {
+                patterns: ['Vaccination schedule', 'When is my next vaccine due?', 'Vaccine information'],
+                responses: ['You can check your vaccination schedule on our website or consult your doctor.', 'Please provide your vaccination history for more details.']
+            },
+            mental_health_support: {
+                patterns: ['I need mental health support', 'Talk to a counselor', 'Mental health help'],
+                responses: ['We have mental health professionals available. Would you like to book an appointment?', 'Our counselors are here to help. How can we assist you?']
+            },
+            health_records_access: {
+                patterns: ['Access my health records', 'View medical history', 'Get my health records'],
+                responses: ['You can access your health records through our patient portal.', 'Please log in to your account to view your medical history.']
+            },
+            specialist_consultation: {
+                patterns: ['I need to see a specialist', 'Specialist appointment', 'Consult a specialist'],
+                responses: ['Which specialist would you like to see?', 'We have specialists available in various fields. Please specify your needs.']
+            },
+            default: {
+                responses: ['Sorry, I didn\'t understand that.', 'Could you please rephrase that?', 'I\'m not sure I understand.']
+            }
+        };
+
+        function classifyIntent(userInput) {
+            userInput = userInput.toLowerCase(); // Convert user input to lowercase
+            for (var intent in intents) {
+                if (intents[intent].patterns) {
+                    for (var i = 0; i < intents[intent].patterns.length; i++) {
+                        if (userInput.includes(intents[intent].patterns[i])) {
+                            return intent;
+                        }
+                    }
+                }
+            }
+            return 'default';
+        }
+
+        function generateResponse(intent) {
+            var responses = intents[intent].responses;
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            var chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += "<p><strong>You:</strong> " + userInput + "</p>";
+            var intent = classifyIntent(userInput);
+            var response = generateResponse(intent);
+            chatBox.innerHTML += "<p><strong>Chatbot:</strong> " + response + "</p>";
+            document.getElementById("user-input").value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Routine</title>
+    <link rel="stylesheet" href="fitnessstyles.css">
+</head>
+<body>
+    <form id="fitness-questionnaire" method="post" action="submit_form.php">
+        <h2>Personal Information</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br><br>
+        
+        <label for="gender">Gender:</label> 
+        <select id="gender" name="gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone"><br><br> 
+        
+        <h2>Health Status</h2>
+        <label for="medical-conditions">Do you have any existing medical conditions or injuries? If yes, please specify:</label> 
+        <textarea id="medical-conditions" name="medical-conditions"></textarea>
+        <br><br> 
+        
+        <label for="physical-limitations">Are there any physical limitations or restrictions I should be aware of?</label> 
+        <textarea id="physical-limitations" name="physical-limitations"></textarea>
+        <br><br> 
+        
+        <label for="health-clearance">Have you received clearance from a healthcare professional to engage in physical activity?</label> 
+        <select id="health-clearance" name="health-clearance">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <br><br> 
+        
+        <h2>Fitness Goals</h2>
+        <label for="fitness-goals">What are your primary fitness goals? (e.g., weight loss, muscle gain, improved cardiovascular health, flexibility)</label> 
+        <textarea id="fitness-goals" name="fitness-goals"></textarea>
+        <br><br> 
+        
+        <label for="target-milestones">Do you have any specific target milestones or deadlines for achieving these goals?</label> 
+        <textarea id="target-milestones" name="target-milestones"></textarea>
+        <br><br> 
+        
+        <h2>Current Fitness Level</h2>
+        <label for="current-fitness-level">How would you describe your current fitness level?</label> 
+        <textarea id="current-fitness-level" name="current-fitness-level"></textarea>
+        <br><br> 
+        
+        <label for="current-activity">Are you currently engaged in any form of physical activity or exercise routine? If yes, please describe.</label> 
+        <textarea id="current-activity" name="current-activity"></textarea>
+        <br><br> 
+        
+        <h2>Preferences and Interests</h2>
+        <label for="exercise-preferences">What types of exercise or physical activities do you enjoy?</label> 
+        <textarea id="exercise-preferences" name="exercise-preferences"></textarea>
+        <br><br> 
+        
+        <label for="exercise-dislikes">Are there any activities you dislike or prefer to avoid?</label> 
+        <textarea id="exercise-dislikes" name="exercise-dislikes"></textarea>
+        <br><br> 
+        
+        <h2>Time Availability</h2>
+        <label for="days-available">How many days per week are you available to dedicate to exercise?</label>
+        <input type="number" id="days-available" name="days-available"><br><br> 
+        
+        <label for="workout-times">What time(s) of day are most convenient for you to work out?</label> 
+        <textarea id="workout-times" name="workout-times"></textarea>
+        <br><br> 
+        
+        <h2>Equipment Access</h2>
+        <label for="gym-access">Do you have access to a gym or fitness facility?</label> 
+        <select id="gym-access" name="gym-access"> 
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <br><br> 
+        <input type="submit" value="Submit to view plan">
+    </form>
+</body>
+</html>
